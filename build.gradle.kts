@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.github.clorissabelles.isabelles-discord-bot"
-version = "0.1.0"
+version = "0.1.1"
 
 repositories {
     google()

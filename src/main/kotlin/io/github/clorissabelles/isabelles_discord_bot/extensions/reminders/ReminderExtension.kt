@@ -1,5 +1,6 @@
 package io.github.clorissabelles.isabelles_discord_bot.extensions.reminders
 
+import com.kotlindiscord.kord.extensions.commands.application.slash.EphemeralSlashCommandContext
 import com.kotlindiscord.kord.extensions.commands.application.slash.ephemeralSubCommand
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
@@ -82,6 +83,17 @@ class ReminderExtension : Extension() {
 
 				action {
 					medicineMessage = createMedicineMessage(this@ReminderExtension)
+				}
+			}
+
+			ephemeralSubCommand {
+				name = "refresh"
+				description = "Refresh the created reminders."
+
+				action {
+					refreshReminders()
+
+					respond { content = "Refreshing reminders in 10 seconds." }
 				}
 			}
 		}
@@ -257,6 +269,10 @@ class ReminderExtension : Extension() {
 			is AntiAndrogenReminder -> antiAndrogenMessage = null
 			is MedicineReminder -> medicineMessage = null
 		}
+	}
+
+	private fun EphemeralSlashCommandContext<*, *>.refreshReminders() {
+		executor.schedule(::updateReminders, 10, TimeUnit.SECONDS)
 	}
 
 	private fun scheduleFixedReminderUpdates() {
