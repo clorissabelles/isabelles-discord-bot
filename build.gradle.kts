@@ -39,6 +39,8 @@ dependencies {
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
+	implementation("com.h2database:h2:2.2.224")
+
     implementation("org.slf4j:slf4j-simple:2.0.11")
 }
 
